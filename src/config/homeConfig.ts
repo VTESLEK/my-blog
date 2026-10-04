@@ -6,7 +6,7 @@ export const homeConfig: HomeConfig = {
 	// 1. public 目录（以 "/" 开头，不优化）："/assets/images/avatar.webp"
 	// 2. src 目录（不以 "/" 开头，自动优化但会增加构建时间，推荐）："assets/images/avatar.webp"
 	// 3. 远程 URL："https://example.com/avatar.jpg"
-	avatar: "/assets/images/avatar.webp",
+	avatar: "https://d9f.cc.cd/file/blog/config/1791115572918_8678.png",
 
 	// 名字
 	name: "xane",
@@ -18,7 +18,7 @@ export const homeConfig: HomeConfig = {
 	bio: ["Keep going."],
 
 	hero: {
-		backgroundImage: "/assets/images/home/home.avif",
+		backgroundImage: "https://d9f.cc.cd/file/blog/config/1791115635847_1170.jpg",
 		mosaic: {
 			rows: 4,
 			columns: 6,
