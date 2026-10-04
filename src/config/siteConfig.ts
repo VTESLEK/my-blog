@@ -168,9 +168,9 @@ export const siteConfig: SiteConfig = {
 		microsoftClarityId: "",
 		// Umami ????
 		umamiAnalytics: {
-			websiteId: "",
-			shareId: "",
-			scriptUrl: "",
+			websiteId: "0d85923b-5d90-4218-91fc-8c1229baffff",
+			shareId: "UolVDDOm7oeZhfcM",
+			scriptUrl: "https://cloud.umami.is/script.js",
 			// ?? Umami ? PV ???????????????;????????????
 			pageviews: {
 				enabled: false,
