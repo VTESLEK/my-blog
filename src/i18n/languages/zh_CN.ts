@@ -239,7 +239,7 @@ export const zh_CN: Translation = {
 	[Key.contactMe]: "联系",
 	[Key.qqGroup]: "QQ群",
 	[Key.navPosts]: "文章",
-	[Key.navMy]: "其他",
+	[Key.navMy]: "关于",
 	[Key.navLinks]: "导航",
 
 	// ===== 通用操作 =====
