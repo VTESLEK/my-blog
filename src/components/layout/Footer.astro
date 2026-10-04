@@ -1,6 +1,5 @@
 ---
 import Icon from "@components/common/Icon.astro";
-import FooterSignature from "@components/layout/FooterSignature.astro";
 import { footerConfig, homeConfig, siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
@@ -91,8 +90,7 @@ const opensInNewTab = (href: string) => !/^(mailto:|tel:)/i.test(href);
 		<div class="site-footer__primary">
 			<section class="site-footer__brand" aria-label={homeConfig.name}>
 				<div class="site-footer__brand-copy">
-					<FooterSignature />
-					{bioText && <p class="site-footer__tagline">{bioText}</p>}
+					<p class="site-footer__tagline">{bioText}</p>
 				</div>
 			</section>
 
