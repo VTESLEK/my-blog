@@ -40,9 +40,13 @@
 /* —— 首屏壁纸：复用桌面 Hero 背景图，遮罩保证文字可读 —— */
 
 .home-mobile-hero__bg {
+	/* 横向全出血：突破布局容器的内边距/宽度限制，铺满屏幕两侧 */
 	position: absolute;
-	inset: 0;
-	z-index: 0;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 100vw;
+	transform: translateX(-50%);
 	overflow: hidden;
 }
 
