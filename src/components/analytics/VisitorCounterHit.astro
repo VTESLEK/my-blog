@@ -1,0 +1,16 @@
+---
+// 自建访问计数器埋点：每次页面加载向 Worker 发送一次 hit
+// 服务端按「天 + IP哈希 + 路径」去重，客户端无需节流；失败静默（不阻塞页面）
+interface Props {
+	api: string;
+	site: string;
+}
+const { api, site } = Astro.props;
+---
+
+<script is:inline define:vars={{ api, site }}>
+	fetch(
+		`${api}/hit?site=${encodeURIComponent(site)}&path=${encodeURIComponent(location.pathname)}`,
+		{ method: "POST", keepalive: true },
+	).catch(() => {});
+</script>

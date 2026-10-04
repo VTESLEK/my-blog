@@ -112,19 +112,17 @@ const contactRegions = contactItems.map((link, index) => ({
 	...link,
 	region: contactRegionClasses[index] ?? "unassigned",
 }));
-const umamiConfig = siteConfig.analytics?.umamiAnalytics;
-const statsBaseUrl = umamiConfig?.scriptUrl
-	? new URL(umamiConfig.scriptUrl).origin
-	: "";
-const statsShareId = umamiConfig?.shareId ?? "";
+const counterConfig = siteConfig.analytics?.visitorCounter;
+const statsApi = counterConfig?.apiUrl?.replace(/\/+$/, "") ?? "";
+const statsSite = counterConfig?.site || "";
 ---
 
 <section
 	class="home-data-layer"
 	aria-labelledby="home-data-layer-title"
 	id="home-data-layer"
-	data-stats-base-url={statsBaseUrl}
-	data-stats-share-id={statsShareId}
+	data-stats-api={statsApi}
+	data-stats-site={statsSite}
 	data-guide-opening="pending"
 >
 	<div class="home-data-layer__inner">
@@ -261,7 +259,7 @@ const statsShareId = umamiConfig?.shareId ?? "";
 	import { waitForPageLoaderHidden } from "@/utils/page-loader-controller.js";
 
 	type Cleanup = () => void;
-	type ShareData = { websiteId: string; token: string };
+	type VisitStats = { uv: number; pv: number };
 	type GuideOpeningTargets = {
 		visitCard: HTMLElement;
 		archiveCard: HTMLElement;
@@ -277,7 +275,7 @@ const statsShareId = umamiConfig?.shareId ?? "";
 		zIndex: number;
 	};
 
-	const shareCache = createCache<ShareData>({ key: "umami_share_data", ttl: 3_600_000 });
+	const visitStatsCache = createCache<VisitStats>({ key: "site_visit_stats", ttl: 300_000 });
 	let cleanups: Cleanup[] = [];
 	let guideOpeningToken = 0;
 
@@ -619,23 +617,18 @@ const statsShareId = umamiConfig?.shareId ?? "";
 	}
 
 	function initVisitStats(layer: HTMLElement) {
-		const statsBaseUrl = layer.dataset.statsBaseUrl;
-		const statsShareId = layer.dataset.statsShareId;
-		if (!statsBaseUrl || !statsShareId) return;
+		const statsApi = layer.dataset.statsApi;
+		const statsSite = layer.dataset.statsSite;
+		if (!statsApi || !statsSite) return;
 		const detail = layer.querySelector<HTMLElement>(".data-card[data-stat-kind='visits'] .data-card__detail");
 		const valueNodes = layer.querySelectorAll<HTMLElement>("[data-stat-value]");
-		shareCache.fetch(async () => {
-			const response = await fetch(`${statsBaseUrl}/api/share/${statsShareId}`);
-			if (!response.ok) throw new Error("获取 Umami 分享信息失败");
-			const share = await response.json() as { websiteId?: string; entityId?: string; token?: string };
-			const websiteId = share.websiteId || share.entityId;
-			if (!websiteId) throw new Error("Umami 分享信息缺少 websiteId");
-			return { websiteId, token: share.token || statsShareId };
-		}).then(({ websiteId, token }) => fetch(`${statsBaseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${Date.now()}`, {
-			headers: { "x-umami-share-token": token, "x-umami-share-context": "1", "Content-Type": "application/json" },
-		})).then((response) => response.json()).then((data: { uv?: number; visitors?: number; pv?: number; pageviews?: number }) => {
-			const uvRaw = data.uv || data.visitors || 0;
-			const pvRaw = data.pv || data.pageviews || 0;
+		visitStatsCache.fetch(async () => {
+			const response = await fetch(`${statsApi}/stats?site=${encodeURIComponent(statsSite)}`);
+			if (!response.ok) throw new Error("获取访问统计失败");
+			return (await response.json()) as VisitStats;
+		}).then((data: VisitStats) => {
+			const uvRaw = data.uv || 0;
+			const pvRaw = data.pv || 0;
 			const uvCompact = formatCompactNumber(uvRaw);
 			const pvCompact = formatCompactNumber(pvRaw);
 			if (detail) detail.textContent = `${i18n(I18nKey.siteStatsVisitors)} ${uvCompact} · ${i18n(I18nKey.viewsBrowseLabel)} ${pvCompact}`;

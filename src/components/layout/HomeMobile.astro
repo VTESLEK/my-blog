@@ -63,18 +63,16 @@ const contactItems = homeConfig.links.map((link) => ({
 	icon: link.icon,
 	href: link.url,
 }));
-const umamiConfig = siteConfig.analytics?.umamiAnalytics;
-const statsBaseUrl = umamiConfig?.scriptUrl
-	? new URL(umamiConfig.scriptUrl).origin
-	: "";
-const statsShareId = umamiConfig?.shareId ?? "";
+const counterConfig = siteConfig.analytics?.visitorCounter;
+const statsApi = counterConfig?.apiUrl?.replace(/\/+$/, "") ?? "";
+const statsSite = counterConfig?.site || "";
 ---
 
 <div
 	class="home-mobile"
 	id="home-mobile"
-	data-stats-base-url={statsBaseUrl}
-	data-stats-share-id={statsShareId}
+	data-stats-api={statsApi}
+	data-stats-site={statsSite}
 >
 	{/* 第一层：个人信息区 */}
 	<section class="home-mobile-hero">
@@ -159,8 +157,8 @@ const statsShareId = umamiConfig?.shareId ?? "";
 					</span>
 					<span class="home-mobile-stat__label">{i18n(I18nKey.wordCount)}</span>
 				</button>
-				{/* UV/PV 依赖 Umami 统计后端，未配置时不渲染，避免永久显示 "--" */}
-				{statsBaseUrl && (
+				{/* UV/PV 依赖自建访问计数器，未配置时不渲染，避免永久显示 "--" */}
+				{statsApi && (
 					<>
 						<span class="home-mobile-stats__sep" aria-hidden="true">·</span>
 						<button
@@ -305,11 +303,11 @@ const statsShareId = umamiConfig?.shareId ?? "";
 	import { bindHomeLayer } from "@/utils/home-lifecycle";
 
 	type Cleanup = () => void;
-	type ShareData = { websiteId: string; token: string };
+	type VisitStats = { uv: number; pv: number };
 
-	const shareCache = createCache<ShareData>({
-		key: "umami_share_data",
-		ttl: 3_600_000,
+	const visitStatsCache = createCache<VisitStats>({
+		key: "site_visit_stats",
+		ttl: 300_000,
 	});
 	let cleanups: Cleanup[] = [];
 
@@ -319,40 +317,22 @@ const statsShareId = umamiConfig?.shareId ?? "";
 	}
 
 	function initVisitStats(root: HTMLElement) {
-		const statsBaseUrl = root.dataset.statsBaseUrl;
-		const statsShareId = root.dataset.statsShareId;
-		if (!statsBaseUrl || !statsShareId) return;
+		const statsApi = root.dataset.statsApi;
+		const statsSite = root.dataset.statsSite;
+		if (!statsApi || !statsSite) return;
 		const valueNodes = root.querySelectorAll<HTMLElement>("[data-mobile-stat]");
 		if (valueNodes.length === 0) return;
-		shareCache
+		visitStatsCache
 			.fetch(async () => {
-				const response = await fetch(`${statsBaseUrl}/api/share/${statsShareId}`);
-				if (!response.ok) throw new Error("获取 Umami 分享信息失败");
-				const share = await response.json() as {
-					websiteId?: string;
-					entityId?: string;
-					token?: string;
-				};
-				const websiteId = share.websiteId || share.entityId;
-				if (!websiteId) throw new Error("Umami 分享信息缺少 websiteId");
-				return { websiteId, token: share.token || statsShareId };
+				const response = await fetch(
+					`${statsApi}/stats?site=${encodeURIComponent(statsSite)}`,
+				);
+				if (!response.ok) throw new Error("获取访问统计失败");
+				return (await response.json()) as VisitStats;
 			})
-			.then(({ websiteId, token }) =>
-				fetch(
-					`${statsBaseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${Date.now()}`,
-					{
-						headers: {
-							"x-umami-share-token": token,
-							"x-umami-share-context": "1",
-							"Content-Type": "application/json",
-						},
-					},
-				),
-			)
-			.then((response) => response.json())
-			.then((data: { uv?: number; visitors?: number; pv?: number; pageviews?: number }) => {
-				const uvRaw = data.uv || data.visitors || 0;
-				const pvRaw = data.pv || data.pageviews || 0;
+			.then((data: VisitStats) => {
+				const uvRaw = data.uv || 0;
+				const pvRaw = data.pv || 0;
 				valueNodes.forEach((node) => {
 					const isUv = node.dataset.mobileStat === "UV";
 					const raw = isUv ? uvRaw : pvRaw;

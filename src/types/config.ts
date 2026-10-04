@@ -114,6 +114,10 @@ export type SiteConfig = {
 				blockSelector?: string; // 需要完全排除录制的元素 CSS 选择器
 			};
 		};
+		visitorCounter?: {
+			apiUrl?: string; // 自建访问计数器 API（Cloudflare Worker，如 https://stats.xane.eu.cc）
+			site?: string; // 站点标识（Worker SITES 白名单项，通常为站点域名）
+		};
 		la51Analytics?: {
 			Id?: string; // 51la 统计 ID
 			sdkUrl?: string; // 自定义 SDK 地址，防止 DNS 污染，默认为 "//sdk.51.la/js-sdk-pro.min.js"

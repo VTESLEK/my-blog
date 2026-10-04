@@ -166,6 +166,11 @@ export const siteConfig: SiteConfig = {
 		googleAnalyticsId: "",
 		// Microsoft Clarity ID
 		microsoftClarityId: "",
+		// 自建访问计数器（Cloudflare Worker，首页 UV/PV 数据源）
+		visitorCounter: {
+			apiUrl: "https://stats.xane.eu.cc",
+			site: "xane.eu.cc",
+		},
 		// Umami ????
 		umamiAnalytics: {
 			websiteId: "0d85923b-5d90-4218-91fc-8c1229baffff",

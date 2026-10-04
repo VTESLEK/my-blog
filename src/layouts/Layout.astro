@@ -3,6 +3,7 @@ import GoogleAnalytics from "@components/analytics/GoogleAnalytics.astro";
 import La51Analytics from "@components/analytics/La51Analytics.astro";
 import MicrosoftClarity from "@components/analytics/MicrosoftClarity.astro";
 import UmamiAnalytics from "@components/analytics/UmamiAnalytics.astro";
+import VisitorCounterHit from "@components/analytics/VisitorCounterHit.astro";
 import CodeGroupManager from "@components/features/CodeGroupManager.astro";
 import CopyNoticeManager from "@components/features/CopyNoticeManager.astro";
 import FancyboxManager from "@components/features/FancyboxManager.astro";
@@ -128,6 +129,12 @@ const siteLang = lang.replace("_", "-");
         trackOutboundLinks={siteConfig.analytics.umamiAnalytics.trackOutboundLinks}
         collectWebVitals={siteConfig.analytics.umamiAnalytics.collectWebVitals}
         relpays={siteConfig.analytics.umamiAnalytics.relpays}
+      />
+    )}
+    {siteConfig.analytics?.visitorCounter?.apiUrl && siteConfig.analytics.visitorCounter.site && (
+      <VisitorCounterHit
+        api={siteConfig.analytics.visitorCounter.apiUrl}
+        site={siteConfig.analytics.visitorCounter.site}
       />
     )}
     {siteConfig.analytics?.la51Analytics?.Id && (
