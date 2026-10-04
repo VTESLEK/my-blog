@@ -397,6 +397,8 @@ export type HomeConfig = {
 	bio?: string | string[];
 	hero: {
 		backgroundImage: string;
+		/** 移动端首屏壁纸；留空时使用 backgroundImage */
+		mobileBackgroundImage?: string;
 		mosaic: HeroMosaicConfig;
 		contact?: HeroContactConfig;
 		sticker: HeroStickerConfig;

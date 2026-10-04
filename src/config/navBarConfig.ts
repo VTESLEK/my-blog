@@ -22,6 +22,23 @@ const personalSites: PersonalSite[] = [];
  * - 先依次构建各导航项，再统一组装到 links 数组
  */
 const buildNavBarConfig = (): NavBarConfig => {
+	// 组装下拉组：子项为空不渲染；只剩一项时拍平为直链，避免单项还折叠一层
+	const buildGroup = (
+		children: (NavBarLink | LinkPreset)[],
+		preset: LinkPreset,
+		extra?: Partial<NavBarLink>,
+	): NavBarLink | null => {
+		if (children.length === 0) return null;
+		if (children.length === 1) {
+			const only = children[0];
+			return {
+				...(typeof only === "number" ? LinkPresets[only] : only),
+				...extra,
+			} as NavBarLink;
+		}
+		return { ...LinkPresets[preset], ...extra, children } as NavBarLink;
+	};
+
 	// 1. 构建文章下拉菜单（子项顺序：文档 → 归档 → 图谱）
 	const postsChildren: (NavBarLink | LinkPreset)[] = [];
 	if (siteConfig.pages.postList) {
@@ -34,15 +51,9 @@ const buildNavBarConfig = (): NavBarConfig => {
 		postsChildren.push(LinkPreset.Categories);
 	}
 
-	// 子项全部关闭时不渲染空的下拉菜单
-	const postsNav: NavBarLink | null =
-		postsChildren.length > 0
-			? {
-					...LinkPresets[LinkPreset.NavPosts],
-					activePathPrefixes: ["/posts/"],
-					children: postsChildren,
-				}
-			: null;
+	const postsNav = buildGroup(postsChildren, LinkPreset.NavPosts, {
+		activePathPrefixes: ["/posts/"],
+	});
 
 	// 2. 构建联系我下拉菜单
 	const contactChildren: (NavBarLink | LinkPreset)[] = [];
@@ -53,13 +64,7 @@ const buildNavBarConfig = (): NavBarConfig => {
 		contactChildren.push(LinkPreset.Guestbook);
 	}
 
-	const contactNav: NavBarLink | null =
-		contactChildren.length > 0
-			? {
-					...LinkPresets[LinkPreset.ContactMe],
-					children: contactChildren,
-				}
-			: null;
+	const contactNav = buildGroup(contactChildren, LinkPreset.ContactMe);
 
 	// 3. 构建我的下拉菜单
 	const myChildren: (NavBarLink | LinkPreset)[] = [];
@@ -76,14 +81,7 @@ const buildNavBarConfig = (): NavBarConfig => {
 		myChildren.push(LinkPreset.About);
 	}
 
-	// 子项全部关闭时不渲染空的下拉菜单
-	const myNav: NavBarLink | null =
-		myChildren.length > 0
-			? {
-					...LinkPresets[LinkPreset.NavMy],
-					children: myChildren,
-				}
-			: null;
+	const myNav = buildGroup(myChildren, LinkPreset.NavMy);
 
 	// 4. 导航：原「导航」下拉拆分后的一级项，直接指向工具导航页，页面开关控制显隐
 	//    （下拉里的另一项「个人主站」是外链，移到了 Navbar 左段 Logo 的悬停下拉）

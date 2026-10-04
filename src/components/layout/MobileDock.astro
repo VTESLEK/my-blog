@@ -49,7 +49,8 @@ if (isLocalSrcLogo) {
 	const file = files[normalizedPath];
 	if (file) logoImg = await file();
 }
-const showMusic = musicPlayerConfig.showInNavbar !== false;
+const showMusic =
+	siteConfig.pages.music !== false && musicPlayerConfig.showInNavbar !== false;
 const showAnnouncement = announcements.length > 0;
 const showSpine = !!spineModelConfig?.enable;
 const isHomePath = Astro.url.pathname === "/" || Astro.url.pathname === "";

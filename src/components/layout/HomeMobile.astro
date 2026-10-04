@@ -34,8 +34,11 @@ const displayName = homeConfig.displayName || homeConfig.name;
 const bioText = Array.isArray(homeConfig.bio)
 	? homeConfig.bio[0] || ""
 	: homeConfig.bio || "";
-// 移动端首屏壁纸：复用桌面 Hero 的背景图配置
-const heroBg = homeConfig.hero?.backgroundImage || "";
+// 移动端首屏壁纸：优先独立配置，留空回退桌面壁纸
+const heroBg =
+	homeConfig.hero?.mobileBackgroundImage ||
+	homeConfig.hero?.backgroundImage ||
+	"";
 
 let avatarImg: ImageMetadata | null = null;
 const avatarValue = homeConfig.avatar || "";

@@ -19,6 +19,8 @@ export const homeConfig: HomeConfig = {
 
 	hero: {
 		backgroundImage: "https://d9f.cc.cd/file/blog/config/1791116069433_8716.png",
+		// 移动端首屏壁纸（留空时使用上面的电脑壁纸）
+		mobileBackgroundImage: "",
 		mosaic: {
 			rows: 4,
 			columns: 6,
