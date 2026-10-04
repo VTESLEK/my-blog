@@ -7,26 +7,25 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "MmzMing的博客",
+	title: "xane",
 
 	// 站点副标题
-	subtitle: "MmzMing",
+	subtitle: "Demo site",
 
 	// 站点 URL
-	site_url: "https://tblog.mmzhiku.xyz",
+	site_url: "https://xane.eu.cc",
 
 	// 站点描述
 	// 同时用作：首页与各功能页的 <meta name="description"> 兜底、JSON-LD 里
 	// WebSite/Person 实体的 description。所以这里写清站点的实际内容方向，
 	// 而不是只写"记录学习与生活"这类无检索价值的通用表述。
 	description:
-		"记录 Java 后端与 AI 工程的实践笔记，涵盖并发编程、接口安全、认证授权、缓存设计、性能优化与 RAG 应用开发。",
+		"我的第一个静态博客",
 
 	// 站点关键词
 	keywords: [
-		"MmzMing",
-		"JAVA",
-		"AI",
+		"xane",
+		"Firefly",
 		"Astro",
 		"ACGN",
 		"博客",
@@ -37,11 +36,12 @@ export const siteConfig: SiteConfig = {
 	// 主题色
 	themeColor: {
 		// 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		hue: 165,
+		// 280 = 淡青紫，月光银蓝用于导航栏玻璃底色
+		hue: 280,
 		// 是否对访问者隐藏主题色选择器
-		fixed: false,
-		// 默认模式："light" 亮色，"dark" 暗色
-		defaultMode: "dark",
+		fixed: true,
+		// 默认模式："light" 亮色，"dark" 暗色，"system" 跟随系统
+		defaultMode: "system",
 	},
 
 	// 页面整体宽度（单位：rem）
@@ -53,51 +53,16 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		{
 			src: "/favicon/favicon.ico",
+		},
+		{
+			src: "/favicon/favicon-light-32.png",
+			theme: "light",
 			sizes: "32x32",
 		},
 		{
-			src: "/favicon/favicon-16x16.png",
-			sizes: "16x16",
-		},
-		{
-			src: "/favicon/favicon-32x32.png",
+			src: "/favicon/favicon-dark-32.png",
+			theme: "dark",
 			sizes: "32x32",
-		},
-		{
-			src: "/favicon/favicon-48x48.png",
-			sizes: "48x48",
-		},
-		{
-			src: "/favicon/favicon.svg",
-			sizes: "any",
-		},
-		{
-			src: "/favicon/apple-touch-icon.png",
-			sizes: "180x180",
-		},
-		{
-			src: "/favicon/apple-touch-icon-152x152.png",
-			sizes: "152x152",
-		},
-		{
-			src: "/favicon/apple-touch-icon-167x167.png",
-			sizes: "167x167",
-		},
-		{
-			src: "/favicon/apple-touch-icon-180x180.png",
-			sizes: "180x180",
-		},
-		{
-			src: "/favicon/android-chrome-192x192.png",
-			sizes: "192x192",
-		},
-		{
-			src: "/favicon/android-chrome-512x512.png",
-			sizes: "512x512",
-		},
-		{
-			src: "/favicon/safari-pinned-tab.svg",
-			sizes: "any",
 		},
 	],
 
@@ -111,11 +76,11 @@ export const siteConfig: SiteConfig = {
 		// 4. 网络图片: { type: "url", value: "https://example.com/logo.png", alt: "Logo" }
 		logo: {
 			type: "image",
-			value: "assets/images/logo.png",
-			alt: "logo",
+			value: "/logo-x.svg",
+			alt: "xane",
 		},
 		// 导航栏标题
-		title: "MmzMing的博客",
+		title: "xane",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: false,
 	},
@@ -203,12 +168,12 @@ export const siteConfig: SiteConfig = {
 		microsoftClarityId: "",
 		// Umami 统计配置
 		umamiAnalytics: {
-			websiteId: "d47eea8b-7ad5-472b-a838-c873ba859c4f",
-			shareId: "HZrqqAfVdx1UEVNm",
-			scriptUrl: "https://stats.mmzhiku.xyz/script.js",
+			websiteId: "",
+			shareId: "",
+			scriptUrl: "",
 			// 使用 Umami 的 PV 展示文章详情、列表与网格浏览量；启用时优先于评论系统统计
 			pageviews: {
-				enabled: true,
+				enabled: false,
 			},
 			// 是否追踪出站链接
 			trackOutboundLinks: true,

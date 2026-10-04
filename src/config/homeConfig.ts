@@ -6,19 +6,16 @@ export const homeConfig: HomeConfig = {
 	// 1. public 目录（以 "/" 开头，不优化）："/assets/images/avatar.webp"
 	// 2. src 目录（不以 "/" 开头，自动优化但会增加构建时间，推荐）："assets/images/avatar.webp"
 	// 3. 远程 URL："https://example.com/avatar.jpg"
-	avatar: "assets/images/avatar.webp",
+	avatar: "/assets/images/avatar.webp",
 
 	// 名字
-	name: "MmzMing",
+	name: "xane",
 
 	// 首页展示名字（留空则使用 name）
-	displayName: "MmzMing",
-
-	// 职业/身份标签
-	occupation: "[全干工程师 / 技术博主]",
+	displayName: "xane",
 
 	// 个人签名（支持多条，会循环打字+删除效果）
-	bio: ["且视他人之疑目如盏盏鬼火，大胆地去走你的夜路"],
+	bio: ["Keep going."],
 
 	hero: {
 		backgroundImage: "/assets/images/home/home.avif",
@@ -47,10 +44,6 @@ export const homeConfig: HomeConfig = {
 			mobileMinViewports: 3.05,
 			interactionHold: 0.06,
 		},
-		contact: {
-			platform: "B站",
-			handle: "Mmz明崽",
-		},
 		sticker: {
 			image: "/assets/images/home/character.avif",
 			alt: "黑猫角色贴纸",
@@ -75,7 +68,7 @@ export const homeConfig: HomeConfig = {
 		},
 		// galgame 对话框（写死暗黑主题）。内容全部由此驱动，可自由增删
 		dialogue: {
-			enabled: true,
+			enabled: false,
 			speakers: {
 				host: "哈基墩",
 				visitor: "访客",
@@ -224,21 +217,15 @@ export const homeConfig: HomeConfig = {
 	// showName: true 时显示图标和名称，false 时只显示图标
 	links: [
 		{
-			name: "qq",
-			icon: "fa7-brands:qq",
-			url: "https://qm.qq.com/q/2R07cjGTZ0",
-			showName: false,
-		},
-		{
-			name: "B站",
-			icon: "fa7-brands:bilibili",
-			url: "https://space.bilibili.com/15446538",
-			showName: false,
-		},
-		{
 			name: "GitHub",
 			icon: "fa7-brands:github",
-			url: "https://github.com/MmzMing",
+			url: "https://github.com/VTESLEK",
+			showName: false,
+		},
+		{
+			name: "Email",
+			icon: "fa7-solid:envelope",
+			url: "vteslek@outlook.com",
 			showName: false,
 		},
 		{
