@@ -18,7 +18,7 @@ export const homeConfig: HomeConfig = {
 	bio: ["Keep going."],
 
 	hero: {
-		backgroundImage: "https://d9f.cc.cd/file/blog/config/1791115635847_1170.jpg",
+		backgroundImage: "https://d9f.cc.cd/file/blog/config/1791116069433_8716.png",
 		mosaic: {
 			rows: 4,
 			columns: 6,
@@ -126,7 +126,7 @@ export const homeConfig: HomeConfig = {
 		},
 		// 玻璃雨珠 + 撞击水花（移动端自动降低密度，尊重 prefers-reduced-motion）
 		rain: {
-			enabled: true,
+			enabled: false,
 			intensity: 0.6,
 			// 留空则随主题自动取色（暗色→白 / 浅色→深灰）；也可填 "#7fb0ff" 或 "127,176,255"
 			color: "#ffffff",
