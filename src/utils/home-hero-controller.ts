@@ -216,7 +216,6 @@ export function mountHomeHero() {
 		hero.querySelectorAll<HTMLElement>("[data-hero-action]"),
 	);
 	const tiles = getTileStates(hero);
-	const avatar = hero.querySelector<HTMLElement>(".home-hero__avatar");
 	let timeline: ReturnType<typeof gsap.timeline> | null = null;
 	let heroScrollTrigger: ReturnType<typeof ScrollTrigger.create> | null = null;
 	let scrollDriver: ReturnType<typeof gsap.to> | null = null;
@@ -224,7 +223,6 @@ export function mountHomeHero() {
 	let idleTween: ReturnType<typeof gsap.timeline> | null = null;
 	let tilesIntroTimeline: ReturnType<typeof gsap.timeline> | null = null;
 	let textIntroTimeline: ReturnType<typeof gsap.timeline> | null = null;
-	let avatarIntroTimeline: ReturnType<typeof gsap.timeline> | null = null;
 	let tilesIntroDone = false;
 	let flyHandles: FlyTextHandle[] = [];
 	let contactScatterTimeline: ReturnType<typeof gsap.timeline> | null = null;
@@ -601,16 +599,6 @@ export function mountHomeHero() {
 			0.04,
 		);
 
-		// 右侧头像：滚动初期随碎片渐隐一同淡出（fromTo 显式锚定，防 invalidate 起点漂移）
-		if (avatar) {
-			timeline.fromTo(
-				avatar,
-				{ autoAlpha: 1 },
-				{ autoAlpha: 0, duration: 0.07, ease: "power2.in" },
-				0.05,
-			);
-		}
-
 		for (const tile of tiles) {
 			const start = 0.1 + tile.order * 0.02;
 			timeline.fromTo(
@@ -900,16 +888,6 @@ export function mountHomeHero() {
 		buildTimeline();
 		playTilesIntro();
 		prepareFlyText();
-		// 右侧头像入场：与移动端 hero 头像同一动画（circle 展开 + 缩放归位）
-		if (avatar) {
-			gsap.set(avatar, { clipPath: "circle(0%)", scale: 0.55 });
-			avatarIntroTimeline = gsap.timeline();
-			avatarIntroTimeline.to(
-				avatar,
-				{ clipPath: "circle(75%)", scale: 1, duration: 1.15, ease: "expo.out" },
-				0,
-			);
-		}
 	}
 	document
 		.querySelector(".home-page--motion-pending")
@@ -935,8 +913,6 @@ export function mountHomeHero() {
 		tilesIntroTimeline = null;
 		textIntroTimeline?.kill();
 		textIntroTimeline = null;
-		avatarIntroTimeline?.kill();
-		avatarIntroTimeline = null;
 		for (const handle of flyHandles) handle.destroy();
 		flyHandles = [];
 		contactScatterTimeline = null;
