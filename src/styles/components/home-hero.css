@@ -133,6 +133,30 @@ html:has(.home-hero) #top-row {
 	background: var(--home-hero-overlay);
 }
 
+/* 右侧头像：与移动端同款圆形描边；位置右侧偏上（红圈标注），
+   入场 circle 展开 + 滚动渐隐由 home-hero-controller 驱动 */
+.home-hero__avatar {
+	position: absolute;
+	top: 45%;
+	right: clamp(3rem, 6.5vw, 8.5rem);
+	z-index: 4;
+	width: 8rem;
+	height: 8rem;
+	padding: 4px;
+	border: 2px solid var(--deep-text);
+	border-radius: 50%;
+	overflow: hidden;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+.home-hero__avatar-img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
 .home-hero__rain {
 	z-index: 20;
 	pointer-events: none;
