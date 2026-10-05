@@ -69,8 +69,7 @@ export const friendsPageConfig: FriendsPageConfig = {
 export const friendsConfig: FriendLink[] = [
 	{
 		title: "xane",
-		imgurl:
-			"https://cloudflare-imgbed-d88.pages.dev/file/1784102742642_头像.jpg",
+		imgurl: "https://cloudflare-imgbed-d88.pages.dev/file/1784102742642_头像.jpg",
 		desc: "Keep going.",
 		siteurl: "https://xane.eu.cc/",
 		tags: ["Blog"],
@@ -131,6 +130,16 @@ export const friendsConfig: FriendLink[] = [
 		weight: 96,
 		enabled: true,
 	},
+	{
+		title: "MmzMing的知识库",
+		imgurl: "https://i.stardots.io/784774835/StarDots-2026052116374135506.jpg",
+		desc: "哈基米，南北绿豆",
+		siteurl: "https://tblog.mmzhiku.xyz",
+		tags: ["Astro"],
+		weight: 110,
+		enabled: true,
+	},
+
 ];
 
 // 获取启用的友链并进行排序
