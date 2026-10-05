@@ -157,6 +157,24 @@ export const friendsConfig: FriendLink[] = [
 		weight: 92,
 		enabled: true,
 	},
+	{
+		title: "Secret Blog",
+		imgurl: "https://i.ibb.co.com/tpYBWwXy/shangdi.avif",
+		desc: "My personal, secret blog.",
+		siteurl: "https://secretblog.my.id",
+		tags: ["Astro"],
+		weight: 91,
+		enabled: true,
+	},
+	{
+		title: "Eliauk's Blog",
+		imgurl: "https://img.eliauk312.top/avatar/default-avatar.jpg",
+		desc: "一方天地，记录代码、生活和偶尔的奇思妙想。",
+		siteurl: "https://eliauk312.top/",
+		tags: ["Blog"],
+		weight: 89,
+		enabled: true,
+	},
 
 ];
 
