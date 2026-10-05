@@ -139,6 +139,15 @@ export const friendsConfig: FriendLink[] = [
 		weight: 110,
 		enabled: true,
 	},
+	{
+		title: "伊linxiyy-微博客",
+		imgurl: "https://lxya.net/api/images/a7630eac-ec4b-4729-ae67-461d7a48c0d9",
+		desc: "记录生活，分享技术，留住美好瞬间",
+		siteurl: "https://lxya.net",
+		tags: ["Blog"],
+		weight: 93,
+		enabled: true,
+	},
 
 ];
 
