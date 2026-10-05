@@ -108,7 +108,7 @@ export const friendsConfig: FriendLink[] = [
 		imgurl: "https://q1.qlogo.cn/g?b=qq&nk=20447289&s=640",
 		desc: "坐而言不如起而行.",
 		siteurl: "https://fqzlr.com/",
-		tags: ["Blog"],
+		tags: ["Astro"],
 		weight: 98,
 		enabled: true,
 	},
