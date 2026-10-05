@@ -25,7 +25,7 @@ export const friendsPageConfig: FriendsPageConfig = {
 		desc: "Keep going.",
 		url: "https://xane.eu.cc",
 		avatar:
-			"https://cloudflare-imgbed-d88.pages.dev/file/1784102742642_头像.jpg",
+			"https://d9f.cc.cd/file/1784710214848_tx.jpg",
 		email: "vteslek@outlook.com",
 	},
 
@@ -69,7 +69,7 @@ export const friendsPageConfig: FriendsPageConfig = {
 export const friendsConfig: FriendLink[] = [
 	{
 		title: "xane",
-		imgurl: "https://cloudflare-imgbed-d88.pages.dev/file/1784102742642_头像.jpg",
+		imgurl: "https://d9f.cc.cd/file/1784710214848_tx.jpg",
 		desc: "Keep going.",
 		siteurl: "https://xane.eu.cc/",
 		tags: ["Blog"],
