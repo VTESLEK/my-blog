@@ -122,15 +122,6 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true,
 	},
 	{
-		title: "Phantomxjc",
-		imgurl: "https://xjc.ccwu.cc/img/uploads/2026/06/image1.jpg",
-		desc: "记录个人生活和学习的一个网站。",
-		siteurl: "https://xjc.ccwu.cc",
-		tags: ["Astro"],
-		weight: 96,
-		enabled: true,
-	},
-	{
 		title: "MmzMing的知识库",
 		imgurl: "https://i.stardots.io/784774835/StarDots-2026052116374135506.jpg",
 		desc: "哈基米，南北绿豆",
